@@ -4,11 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Panneau IoT — Armoire</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
 <style>
   /* ============================================================
      Jetons de design : palette "boîtier électrique"
@@ -21,21 +19,17 @@
     --border:    #d9dee4;
     --text:      #1c232c;
     --text-dim:  #6b7480;
-
     --amber:     #c2660c; /* accent température */
     --amber-dim: #f3ddbb;
     --cyan:      #0a8c80; /* accent humidité */
     --cyan-dim:  #c9ece7;
     --led-on:    #16a34a;
     --led-off:   #c9cfd6;
-
     --track:     #e4e8ed;
     --radius-panel: 22px;
     --radius-module: 16px;
   }
-
   * { box-sizing: border-box; }
-
   body{
     margin:0;
     min-height:100vh;
@@ -48,7 +42,6 @@
     font-family:'Space Grotesk', Arial, sans-serif;
     color:var(--text);
   }
-
   /* ============================================================
      Boîtier principal — imite un panneau monté en armoire
      ============================================================ */
@@ -63,7 +56,6 @@
       0 24px 50px -24px rgba(15,23,42,0.18),
       inset 0 1px 0 rgba(255,255,255,0.8);
   }
-
   .panel-header{
     display:flex;
     align-items:flex-start;
@@ -83,7 +75,6 @@
     font-size:13px;
     color:var(--text-dim);
   }
-
   .status{
     display:flex;
     align-items:center;
@@ -107,7 +98,6 @@
     0%,100%{ opacity:1; }
     50%{ opacity:0.55; }
   }
-
   /* ============================================================
      Grille des modules (interrupteurs + jauges)
      ============================================================ */
@@ -119,7 +109,6 @@
   @media (max-width:420px){
     .modules{ grid-template-columns:1fr; }
   }
-
   .module{
     background:var(--panel);
     border:1px solid var(--border);
@@ -136,7 +125,6 @@
     color:var(--text-dim);
     align-self:flex-start;
   }
-
   /* ============================================================
      Interrupteur à bascule (LED1 / LED2)
      ============================================================ */
@@ -175,20 +163,17 @@
     background:var(--led-on);
     box-shadow:0 0 8px rgba(22,163,74,0.45);
   }
-
   .module-state{
     font-family:'JetBrains Mono', monospace;
     font-size:13px;
     color:var(--text-dim);
   }
   .switch.on ~ .module-state{ color:var(--led-on); }
-
   /* ============================================================
      Jauges circulaires (température / humidité)
      ============================================================ */
   .gauge-module.temp{ --accent:var(--amber); --accent-dim:var(--amber-dim); }
   .gauge-module.hum{  --accent:var(--cyan);  --accent-dim:var(--cyan-dim); }
-
   .gauge{
     --pct:0;
     width:104px; height:104px;
@@ -220,7 +205,6 @@
   .gauge-value span:first-child{ font-size:22px; }
   .unit{ font-size:11px; color:var(--text-dim); }
   .gauge-value.flash{ color:var(--accent); }
-
   /* ============================================================
      Section Historique & Prédiction
      ============================================================ */
@@ -244,7 +228,6 @@
     font-size:11.5px;
     color:var(--text-dim);
   }
-
   .predictions{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -262,7 +245,6 @@
   }
   .prediction-card.temp{ --accent:var(--amber); }
   .prediction-card.hum{  --accent:var(--cyan); }
-
   .prediction-row{
     display:flex;
     align-items:center;
@@ -298,7 +280,6 @@
     color:var(--text-dim);
     margin-bottom:2px;
   }
-
   .chart-wrap{
     background:var(--recess);
     border:1px solid var(--border);
@@ -332,7 +313,6 @@
   }
   .chart-legend .temp .dot{ background:var(--amber); }
   .chart-legend .hum .dot{ background:var(--cyan); }
-
   .log-table-wrap{
     border:1px solid var(--border);
     border-radius:14px;
@@ -363,82 +343,99 @@
   .log-row:last-child{ border-bottom:none; }
   .log-row .log-temp{ color:var(--amber); }
   .log-row .log-hum{ color:var(--cyan); }
-
   @media (prefers-reduced-motion: reduce){
     .switch-thumb, .gauge, .status-dot, .gauge-value{ transition:none !important; animation:none !important; }
   }
+:root{color-scheme:dark;--bg:#080f17;--bezel:#101c28;--panel:#162634;--recess:#0b1722;--border:#283d4d;--text:#eef6fc;--text-dim:#9bb0c2;--amber:#ffb268;--amber-dim:#483524;--cyan:#54e0c7;--cyan-dim:#153c38;--led-on:#54e0c7;--led-off:#617484;--track:#273b49}
+html{scroll-behavior:smooth;scroll-padding-top:24px}body{background:radial-gradient(ellipse at 10% 0%,#163d42 0%,transparent 50%),radial-gradient(ellipse at 100% 60%,#2e2439 0%,transparent 50%),var(--bg);padding:40px 20px 110px;align-items:flex-start}.panel{max-width:760px;padding:28px;border-radius:32px;box-shadow:0 30px 90px #0005;background:linear-gradient(145deg,#172936,#0d1925)}.panel-header{padding:0 0 22px;gap:12px;align-items:center}.panel-header h1{font-size:28px;letter-spacing:-1px}.subtitle{line-height:1.6}.eyebrow{color:var(--cyan);font-size:10px;font-weight:700;letter-spacing:3px;margin-bottom:10px}.status{background:#102f2b;border:1px solid #28574d;padding:9px 12px;border-radius:30px;white-space:nowrap;color:#b7d8ce}.intro{display:flex;justify-content:space-between;align-items:center;margin:22px 0;gap:12px}.intro h2{font-size:17px;margin:0}.intro p{color:var(--text-dim);font-size:12px;margin:6px 0}.device-tag{font:11px monospace;border:1px solid var(--border);padding:8px 12px;border-radius:10px;color:var(--cyan)}.modules{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.module{position:relative;overflow:hidden;border-radius:24px;padding:22px;gap:16px;align-items:flex-start;background:linear-gradient(140deg,#1d3140,#132330);box-shadow:none;min-width:0}.module-label{font-weight:600;color:var(--text);font-size:14px}.module:has(.switch){min-height:174px}.module:has(.switch)::after{content:'◉';position:absolute;right:20px;top:14px;font-size:30px;color:#405564;pointer-events:none}.module:has(.switch.on){border-color:#418e7b;background:linear-gradient(140deg,#20493f,#132d2d)}.module:has(.switch.on)::after{color:var(--cyan);text-shadow:0 0 24px #54e0c777}.switch{min-height:48px;min-width:76px;display:flex;align-items:center}.switch-track{width:76px;height:40px;background:#0b1722}.switch-thumb{height:30px;width:30px;top:4px;left:4px;background:#8193a0}.switch.on .switch-thumb{transform:translateX(36px)}.module-state{font-size:12px}.gauge-module{align-items:center;padding-bottom:24px}.gauge-module .module-label{align-self:flex-start}.gauge{width:132px;height:132px;box-shadow:0 0 32px #0002}.gauge::before{inset:7px;background:#162633}.gauge-value span:first-child{font-size:32px;font-weight:600;letter-spacing:-2px}.unit{font-size:14px}.history-panel{margin-top:28px;padding-top:24px}.history-header h2{font-size:18px}.history-header{gap:10px}.predictions{gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}.prediction-card{border-radius:20px;padding:16px;background:#142531;min-width:0}.prediction-card .module-label{font-size:12px;color:var(--text-dim)}.prediction-row{flex-wrap:wrap;gap:8px}.forecast{font-size:22px;letter-spacing:-.5px;line-height:1.5}.forecast-label{letter-spacing:0}.chart-wrap{padding:18px;border-radius:22px;background:#0c1925}.chart-wrap svg{min-height:140px}.chart-empty{line-height:1.6}.chart-legend{flex-wrap:wrap}.log-table-wrap{border-radius:18px}.log-row{padding:12px 14px}.log-table-header{padding:12px 14px}.mobile-nav{position:fixed;bottom:max(16px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(430px,calc(100% - 32px));display:flex;gap:8px;padding:8px;background:#172936f2;backdrop-filter:blur(20px);border:1px solid #375362;border-radius:24px;box-shadow:0 12px 50px #0008;z-index:10}.mobile-nav a{flex:1;text-decoration:none;text-align:center;color:var(--text-dim);padding:14px 6px;font-size:12px;border-radius:17px;min-height:44px}.mobile-nav a:first-child{background:#284b48;color:var(--cyan)}a:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}.footnote{font-size:11px;line-height:1.6;color:var(--text-dim);margin:14px 2px 0}.notice{display:none;padding:12px;margin:12px 0;color:#ffcc9d;border:1px solid #80553b;border-radius:12px;font-size:13px}.notice.visible{display:block}
+@media(max-width:540px){body{padding:0 0 110px;background:var(--bg)}.panel{padding:24px 16px;border:0;border-radius:0;box-shadow:none}.panel-header{flex-wrap:wrap}.panel-header h1{font-size:26px}.status{font-size:11px}.module{padding:16px;border-radius:22px}.gauge{width:116px;height:116px}.gauge-value span:first-child{font-size:28px}.history-header h2{font-size:16px}.prediction-card{padding:13px}.trend-badge{font-size:12px}.rate{font-size:10px}.log-table-header{font-size:10px}.log-row{font-size:11px}.chart-wrap{padding:12px}.history-hint{white-space:nowrap}.device-tag{font-size:10px;padding:8px}.forecast{font-size:20px}}
+@media(max-width:340px){.gauge{width:100px;height:100px}.panel{padding:20px 12px}.module{padding:12px}.predictions{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Thème clair */
+:root{color-scheme:light;--bg:#f2f6f8;--bezel:#ffffff;--panel:#f7fafc;--recess:#edf3f6;--border:#d9e4ea;--text:#172c3b;--text-dim:#607785;--amber:#b85b0b;--amber-dim:#ffead5;--cyan:#087e70;--cyan-dim:#ddf5ee;--led-on:#087e70;--led-off:#a6b7c2;--track:#e0e9ef}
+body{background:radial-gradient(ellipse at 10% 0%,#d9f5ec 0%,transparent 50%),radial-gradient(ellipse at 100% 60%,#fff0df 0%,transparent 50%),var(--bg)}
+.panel{background:linear-gradient(145deg,#ffffff,#f6fafc);box-shadow:0 30px 90px #33566b12}.status{background:#e5f6ee;border-color:#c0e5d3;color:#2f6851}.module{background:linear-gradient(140deg,#ffffff,#f0f6f9);box-shadow:0 4px 16px #25485b06}.module:has(.switch)::after{color:#b4c6d0}.module:has(.switch.on){border-color:#8dcfba;background:linear-gradient(140deg,#e0f6ec,#f4fcf8)}.module:has(.switch.on)::after{color:var(--cyan);text-shadow:0 0 24px #54e0c744}.switch-track{background:#dfe9ef}.switch-thumb{background:#9aafbd}.gauge{box-shadow:0 0 32px #33566b08}.gauge::before{background:#f7fafc}.prediction-card{background:#ffffff}.chart-wrap{background:#f0f6f9}.mobile-nav{background:#ffffffed;border-color:#d4e3e9;box-shadow:0 12px 50px #244b6420}.mobile-nav a:first-child{background:#dff4ec;color:var(--cyan)}.notice{color:#8a470d;border-color:#e3bf9b;background:#fff4e8}
+@media(max-width:540px){body{background:var(--bg)}}
+
+
+/* Commandes lumineuses */
+.module.light-card{--light:#b85b0b;--glow:#ffcc79;--tint:#fff2df;align-items:center;gap:0;padding:18px;background:linear-gradient(150deg,#fff,#fffaf2);border-color:#ecdfce;transition:background .3s,border-color .3s}.module.light-2{--light:#087e70;--glow:#79e6ce;--tint:#e1f8f0;background:linear-gradient(150deg,#fff,#f2fbf8);border-color:#d1e8df}.module.light-card::after{display:none}.light-heading{display:flex;align-items:center;justify-content:space-between;width:100%}.channel{font:10px monospace;color:var(--text-dim);border:1px solid var(--border);border-radius:8px;padding:5px 7px}.switch.light-control{display:flex;flex-direction:column;width:100%;padding:0;min-width:0;min-height:44px;color:var(--text);font:inherit;gap:8px}.lamp-scene{position:relative;width:100%;height:150px;display:grid;place-items:center}.lamp{height:122px;width:102px;position:relative;z-index:1;transition:transform .3s}.lamp-glass{fill:#f1f4f5;stroke:#97acb9;stroke-width:2}.filament{stroke:#97acb9;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.lamp-shine{stroke:#fff;stroke-width:5;stroke-linecap:round}.lamp-base{fill:#647e8d;stroke:#fff;stroke-width:1}.lamp-rays{stroke:var(--light);stroke-width:2.5;stroke-linecap:round;opacity:0;transition:opacity .3s}.lamp-halo{position:absolute;width:132px;height:132px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%);opacity:0;transform:scale(.7);transition:opacity .4s,transform .4s}.lamp-shadow{position:absolute;bottom:5px;width:50px;height:7px;background:#25485b16;border-radius:50%;filter:blur(3px)}.light-action{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;width:100%;background:#fff;border:1px solid #d4e1e7;border-radius:16px;font-size:13px;font-weight:600;box-shadow:0 4px 8px #25485b08;transition:background .3s,transform .15s}.light-action svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}.light-card .module-state{margin-top:10px;font:11px Arial,sans-serif;color:var(--text-dim)}.module.light-card:has(.switch.on){background:linear-gradient(145deg,#fff,var(--tint));border-color:var(--glow)}.light-control.on .lamp-halo{opacity:.75;transform:scale(1.15)}.light-control.on .lamp-glass{fill:var(--glow);stroke:var(--light)}.light-control.on .filament{stroke:var(--light)}.light-control.on .lamp-rays{opacity:1}.light-control.on .light-action{background:var(--light);color:#fff;border-color:var(--light)}.light-control:active .light-action{transform:scale(.97)}.light-control:focus-visible{outline:2px solid var(--light);outline-offset:4px;border-radius:16px}.light-control:disabled{cursor:wait;opacity:.65}.light-card:has(.switch.on) .module-state{color:var(--light)}
+@media(max-width:380px){.module.light-card{padding:13px}.lamp-scene{height:132px}.lamp{height:110px}.light-action{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.light-card,.light-card *{transition:none!important}}
+
+
+/* NEXUS — light living dashboard */
+body{background:radial-gradient(at 0% 0%,#daf0e9,transparent 45%),radial-gradient(at 100% 70%,#ffe9d6,transparent 45%),#f7f8f5}.panel{max-width:860px;background:#ffffffd9;border-color:#fff;border-radius:36px;padding:30px}.panel-header{position:relative;isolation:isolate;overflow:hidden;border:0;border-radius:26px;background:linear-gradient(115deg,#e3f2e9,#f4f5de);padding:28px;margin:0 0 28px;min-height:215px;align-items:flex-start}.panel-header>div{position:relative;z-index:1}.panel-header h1{font-size:38px;font-weight:500;line-height:1.1;letter-spacing:-1.7px;max-width:380px}.panel-header h1 em{font-style:normal;color:#087e70}.eyebrow{font-size:10px;letter-spacing:2px;color:#35564f;margin-bottom:22px}.brand-dot{color:#0c8f79;letter-spacing:0;margin:0 5px}.subtitle{font-size:12px;margin-top:14px;color:#507065}.hero-art{position:absolute;right:16px;bottom:-26px;width:205px;height:205px;color:#739e8380;z-index:0;transform:rotate(-12deg)}.status{font-size:10px;background:#ffffffbf;border-color:#fff;padding:9px}.section-no{font:10px monospace;background:#edf3ef;border:1px solid #dce7e0;border-radius:8px;color:#5c796e;padding:6px;margin-right:8px;vertical-align:middle}.intro{margin:0 0 18px}.intro h2{font-size:17px}.intro p{margin-left:37px}.device-tag{background:#fff;border-radius:30px}.modules{gap:16px}.module.light-card{border-radius:25px}.module.gauge-module{border:1px solid #f0ddc8;background:linear-gradient(145deg,#fff9f0,#fff1df);border-radius:25px;padding:20px;gap:18px}.module.gauge-module.hum{border-color:#cee6de;background:linear-gradient(145deg,#effaf5,#dff3eb)}.sensor-heading{display:flex;align-items:center;gap:8px;align-self:flex-start}.sensor-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:#ffffffb3;color:var(--accent);font-size:23px;padding:4px}.sensor-heading .module-label{font-size:13px}.gauge{width:148px;height:148px;background:conic-gradient(from 225deg,var(--accent) calc(var(--pct)*2.7deg),#ffffffb3 0deg 270deg,transparent 270deg);box-shadow:none;position:relative}.gauge::before{inset:9px;background:#fff5e8;box-shadow:0 6px 16px #86541c09}.hum .gauge::before{background:#e7f7ef}.gauge-value span:first-child{font-size:35px;letter-spacing:-1.5px}.gauge-value{color:var(--accent)}.sensor-scale{width:100%;display:flex;align-items:center;justify-content:space-between;gap:4px;font:10px monospace;color:var(--text-dim)}.sensor-scale span:nth-child(2){font:8px Arial,sans-serif;letter-spacing:.5px}.history-panel{border:0;padding-top:6px;margin-top:28px}.history-header{margin-bottom:18px}.history-hint{background:#eef4f1;border-radius:20px;padding:6px 10px}.prediction-card{position:relative;overflow:hidden;border-radius:22px;padding:18px;background:#fff8ef;border-color:#f0dfca}.prediction-card.hum{background:#eff9f4;border-color:#d4e9df}.prediction-card::after{content:'↗';position:absolute;right:14px;bottom:8px;font-size:65px;font-weight:500;color:var(--accent);opacity:.08;pointer-events:none}.prediction-card .module-label{color:var(--accent);font-weight:600}.trend-badge{background:#ffffffa8;padding:7px 9px;border-radius:12px;font-size:12px}.forecast{font-size:28px;border:0;margin-top:10px;padding-top:0}.forecast-label{font-size:10px;line-height:1.8}.rate{font-size:10px}.chart-wrap{margin-top:18px;padding:20px;background:#fff;border-radius:25px;box-shadow:0 6px 24px #36564406}.chart-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px}.mini-label{font-size:8px;letter-spacing:1.2px;color:var(--text-dim)}.chart-title h3{font-size:15px;font-weight:500;margin:6px 0 0}.live-tag{font:9px monospace;color:#4c7062;background:#eef5f1;border-radius:30px;padding:7px;white-space:nowrap}.chart-empty{background:repeating-linear-gradient(0deg,transparent,transparent 31px,#edf3ef 32px);padding:40px 16px;border-radius:14px;font-size:12px}.chart-legend{padding-top:12px;border-top:1px solid #edf2ef;margin-top:18px;justify-content:center}.chart-legend .dot{width:7px;height:7px}.footnote{font-size:10px;margin:12px 4px 20px}.log-table-wrap{background:#fff;border-radius:22px}.journal-title{display:flex;align-items:center;padding:16px;gap:4px}.journal-title h3{font-size:14px;font-weight:500;margin:0}.journal-icon{margin-left:auto;font-size:24px;color:#789388}.log-table-header{background:#f5f8f6;border-color:#e6eee8}.log-row:nth-child(even){background:#f9fbfa}.log-row{border-color:#edf2ee}.mobile-nav{border-radius:24px;padding:7px;background:#ffffffed;border-color:#dbe8e1;box-shadow:0 8px 35px #193e2920}.mobile-nav a{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;padding:8px 4px;color:#536e63}.nav-icon{font-size:20px;line-height:1.2}.mobile-nav a.active{background:#e0f3e8;color:#087e70}.mobile-nav a:first-child:not(.active){background:transparent;color:#536e63}
+@media(max-width:540px){body{background:#f7f8f5;padding-bottom:105px}.panel{padding:14px 14px 24px;background:#f7f8f5}.panel-header{padding:22px 20px;min-height:224px;margin-bottom:24px;border-radius:26px}.panel-header h1{font-size:32px;max-width:255px}.hero-art{width:170px;height:170px;right:-18px;bottom:-20px;opacity:.6}.panel-header .status{position:absolute;right:12px;top:16px;padding:6px 8px;font-size:9px}.eyebrow{font-size:8px;letter-spacing:1.2px;margin-top:1px;margin-bottom:25px}.subtitle{font-size:11px;max-width:210px}.modules{gap:12px}.module.gauge-module{padding:14px;gap:16px}.gauge{width:120px;height:120px}.gauge-value span:first-child{font-size:29px}.sensor-heading{gap:6px}.sensor-heading .module-label{font-size:12px}.sensor-icon{width:26px;height:26px;font-size:20px}.prediction-card{padding:14px}.forecast{font-size:24px}.chart-title h3{font-size:13px}.chart-wrap{padding:15px}.intro p{font-size:10px}.intro h2{font-size:15px}.device-tag{font-size:9px}.history-header h2{font-size:15px}}
+@media(max-width:350px){.gauge{width:106px;height:106px}.sensor-scale span:nth-child(2){font-size:6px}.panel-header .status{top:14px;right:10px}.eyebrow{letter-spacing:.5px}.chart-title{flex-wrap:wrap}.sensor-heading .module-label{font-size:11px}}
+
+/* En-tête compact : seul l'état de connexion reste visible. */
+.panel-header{
+  min-height:0;
+  padding:0 0 18px;
+  margin-bottom:20px;
+  justify-content:flex-end;
+}
+.panel-header .status{
+  position:static;
+}
+
 </style>
 </head>
 <body>
-
 <div class="panel">
-
-  <!-- En-tête : titre + indicateur de connexion Firebase en direct -->
+  <!-- Seul l'état de connexion reste visible en haut de la page. -->
   <div class="panel-header">
-    <div>
-      <h1>Panneau de contrôle</h1>
-      <p class="subtitle">Armoire — supervision temps réel</p>
-    </div>
     <div class="status">
-      <span class="status-dot" id="statusDot"></span>
       <span id="statusText">Connexion…</span>
     </div>
   </div>
-
-  <div class="modules">
-
+  <div class="intro"><div><h2><span class="section-no">01</span> Votre espace</h2><p>Deux sorties. Un environnement connecté.</p></div><span class="device-tag">ESP32 · 01</span></div><div class="notice" id="notice" role="alert"></div><div class="modules" id="controls">
     <!-- Interrupteur LED 1 -->
-    <div class="module">
-      <div class="module-label">LED 1</div>
-      <button class="switch" id="sw1" role="switch" aria-checked="false" aria-label="LED 1">
-        <span class="switch-track"><span class="switch-thumb"></span></span>
-      </button>
-      <div class="module-state" id="state1">Éteinte</div>
-    </div>
-
+    <div class="module light-card light-1">
+<div class="light-heading"><span class="module-label">LED 1</span><span class="channel">01</span></div>
+<button class="switch light-control" id="sw1" role="switch" aria-checked="false" aria-label="LED 1">
+<span class="lamp-scene" aria-hidden="true"><span class="lamp-halo"></span><svg class="lamp" viewBox="0 0 100 120" fill="none"><path class="lamp-glass" d="M50 18C30 18 20 32 20 48c0 13 7 21 14 28 4 4 5 8 5 13h22c0-5 1-9 5-13 7-7 14-15 14-28 0-16-10-30-30-30Z"/><path class="filament" d="m39 55 11 12 11-12M50 67v22"/><path class="lamp-shine" d="M33 45c0-9 5-15 13-17"/><path class="lamp-base" d="M38 89h24v7H38zM40 96h20v7H40zM44 103h12l-3 5h-6z"/><g class="lamp-rays"><path d="M50 3v7M12 20l6 6M88 20l-6 6M4 49h8M88 49h8"/></g></svg><span class="lamp-shadow"></span></span>
+<span class="light-action"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9M7 5.7a8 8 0 1 0 10 0"/></svg><span class="action-label">Allumer</span></span>
+</button><div class="module-state" id="state1" aria-live="polite">Éteinte</div></div>
     <!-- Interrupteur LED 2 -->
-    <div class="module">
-      <div class="module-label">LED 2</div>
-      <button class="switch" id="sw2" role="switch" aria-checked="false" aria-label="LED 2">
-        <span class="switch-track"><span class="switch-thumb"></span></span>
-      </button>
-      <div class="module-state" id="state2">Éteinte</div>
-    </div>
-
+    <div class="module light-card light-2">
+<div class="light-heading"><span class="module-label">LED 2</span><span class="channel">02</span></div>
+<button class="switch light-control" id="sw2" role="switch" aria-checked="false" aria-label="LED 2">
+<span class="lamp-scene" aria-hidden="true"><span class="lamp-halo"></span><svg class="lamp" viewBox="0 0 100 120" fill="none"><path class="lamp-glass" d="M50 18C30 18 20 32 20 48c0 13 7 21 14 28 4 4 5 8 5 13h22c0-5 1-9 5-13 7-7 14-15 14-28 0-16-10-30-30-30Z"/><path class="filament" d="m39 55 11 12 11-12M50 67v22"/><path class="lamp-shine" d="M33 45c0-9 5-15 13-17"/><path class="lamp-base" d="M38 89h24v7H38zM40 96h20v7H40zM44 103h12l-3 5h-6z"/><g class="lamp-rays"><path d="M50 3v7M12 20l6 6M88 20l-6 6M4 49h8M88 49h8"/></g></svg><span class="lamp-shadow"></span></span>
+<span class="light-action"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9M7 5.7a8 8 0 1 0 10 0"/></svg><span class="action-label">Allumer</span></span>
+</button><div class="module-state" id="state2" aria-live="polite">Éteinte</div></div>
     <!-- Jauge Température -->
     <div class="module gauge-module temp">
-      <div class="module-label">Température</div>
+      <div class="sensor-heading"><span class="sensor-icon">☀</span><div class="module-label">Température</div></div>
       <div class="gauge" id="gaugeTemp">
         <div class="gauge-value" id="tempValueWrap">
           <span id="tempValue">--</span><span class="unit">°C</span>
         </div>
-      </div>
+      </div><div class="sensor-scale"><span>0°</span><span>MESURE ACTUELLE</span><span>50°</span></div>
     </div>
-
     <!-- Jauge Humidité -->
     <div class="module gauge-module hum">
-      <div class="module-label">Humidité</div>
+      <div class="sensor-heading"><svg class="sensor-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3S5 11 5 15a7 7 0 0 0 14 0c0-4-7-12-7-12Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><div class="module-label">Humidité</div></div>
       <div class="gauge" id="gaugeHum">
         <div class="gauge-value" id="humValueWrap">
           <span id="humValue">--</span><span class="unit">%</span>
         </div>
-      </div>
+      </div><div class="sensor-scale"><span>0%</span><span>MESURE ACTUELLE</span><span>100%</span></div>
     </div>
-
   </div>
-
   <!-- ============================================================
        Historique & Prédiction
        ============================================================ -->
-  <div class="history-panel">
+  <div class="history-panel" id="history">
     <div class="history-header">
-      <h2>Historique &amp; prédiction</h2>
+      <h2><span class="section-no">02</span> Le prochain instant</h2>
       <span class="history-hint" id="historyCount">0 points</span>
     </div>
-
     <div class="predictions">
       <div class="prediction-card temp">
-        <div class="module-label">Température — tendance</div>
+        <div class="module-label">☀ &nbsp; Température</div>
         <div class="prediction-row">
           <span class="trend-badge" id="tempTrend"><span class="arrow">→</span><span class="trend-label">Stable</span></span>
           <span class="rate" id="tempRate">+0.00 °C/min</span>
@@ -448,9 +445,8 @@
           <span id="tempForecast">--</span>
         </div>
       </div>
-
       <div class="prediction-card hum">
-        <div class="module-label">Humidité — tendance</div>
+        <div class="module-label">◈ &nbsp; Humidité</div>
         <div class="prediction-row">
           <span class="trend-badge" id="humTrend"><span class="arrow">→</span><span class="trend-label">Stable</span></span>
           <span class="rate" id="humRate">+0.0 %/min</span>
@@ -461,18 +457,16 @@
         </div>
       </div>
     </div>
-
-    <div class="chart-wrap">
+    <div class="chart-wrap"><div class="chart-title"><div><span class="mini-label">LES DERNIÈRES MESURES</span><h3>Le rythme de votre armoire</h3></div><span class="live-tag">20 points max.</span></div>
       <svg id="historyChart" viewBox="0 0 300 120" preserveAspectRatio="none"></svg>
-      <div class="chart-empty" id="chartEmpty">En attente de données de /logs… (vérifie que l'ESP32 tourne et écrit bien dans Firebase)</div>
+      <div class="chart-empty" id="chartEmpty">Les premières mesures apparaîtront ici dès leur réception.</div>
       <div class="chart-legend">
         <span class="legend-item temp"><span class="dot"></span>Température</span>
         <span class="legend-item hum"><span class="dot"></span>Humidité</span>
       </div>
     </div>
-
-    <div class="log-table-wrap">
-      <div class="log-table-header">
+    <p class="footnote">Projection indicative à 1 minute, basée sur les dernières mesures. Les courbes montrent les variations de chaque capteur sur une échelle relative.</p><div class="log-table-wrap" id="journal">
+      <div class="journal-title"><span class="section-no">03</span><h3>Journal des capteurs</h3><span class="journal-icon">≡</span></div><div class="log-table-header">
         <span>Temps (depuis boot)</span><span>Temp.</span><span>Hum.</span>
       </div>
       <div class="log-table-body" id="logTableBody">
@@ -480,13 +474,10 @@
       </div>
     </div>
   </div>
-
 </div>
-
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
   import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
-
   // Configuration Firebase — même projet que le TP1/TP2 (controle-leds-c1d38)
   const firebaseConfig = {
     apiKey: "AIzaSyDkPqhBhhNVYdcAE3nxZkwfj8OoQD6XvMo",
@@ -494,72 +485,60 @@
     databaseURL: "https://controle-leds-c1d38-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "controle-leds-c1d38"
   };
-
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   /* ---------- Indicateur de connexion (vraie valeur Firebase) ---------- */
-  const dot = document.getElementById('statusDot');
   const statusText = document.getElementById('statusText');
   onValue(ref(db, ".info/connected"), snap => {
     const connected = snap.val() === true;
-    dot.classList.toggle('on', connected);
     statusText.textContent = connected ? 'En direct' : 'Hors ligne';
   });
-
   /* ---------- Interrupteurs LED : écrivent ET écoutent Firebase ---------- */
   function bindSwitch(path, btnId, stateId, onLabel, offLabel) {
     const btn = document.getElementById(btnId);
     const stateEl = document.getElementById(stateId);
     const dbRef = ref(db, path);
-
     btn.addEventListener('click', () => {
       const next = btn.getAttribute('aria-checked') !== 'true';
-      set(dbRef, next);
+      btn.disabled = true;
+      set(dbRef, next).catch(() => { const n = document.getElementById("notice"); n.textContent = "Commande non envoyée. Vérifiez votre connexion et vos droits d’accès."; n.classList.add("visible"); }).finally(() => { btn.disabled = false; });
     });
-
     onValue(dbRef, snap => {
       const state = snap.val() === true;
       btn.classList.toggle('on', state);
       btn.setAttribute('aria-checked', state);
+      btn.querySelector('.action-label').textContent = state ? 'Éteindre' : 'Allumer';
       stateEl.textContent = state ? onLabel : offLabel;
     });
   }
-
   bindSwitch('/Led_1', 'sw1', 'state1', 'Allumée', 'Éteinte');
   bindSwitch('/Led_2', 'sw2', 'state2', 'Allumée', 'Éteinte');
-
   /* ---------- Jauges : lecture seule, avec flash à chaque mise à jour ---------- */
   function bindGauge(path, gaugeId, valueId, wrapId, min, max) {
     const gauge = document.getElementById(gaugeId);
     const valueEl = document.getElementById(valueId);
     const wrapEl = document.getElementById(wrapId);
-
     onValue(ref(db, path), snap => {
       const raw = snap.val();
       if (raw === null || raw === undefined) return;
       const value = Number(raw);
+      if (!Number.isFinite(value)) return;
       const clamped = Math.min(max, Math.max(min, value));
       const pct = ((clamped - min) / (max - min)) * 100;
-
       gauge.style.setProperty('--pct', pct);
       valueEl.textContent = Number.isInteger(value) ? value : value.toFixed(1);
-
       if (!reduceMotion) {
         wrapEl.classList.add('flash');
         setTimeout(() => wrapEl.classList.remove('flash'), 500);
       }
     });
   }
-
   bindGauge('/temperature', 'gaugeTemp', 'tempValue', 'tempValueWrap', 0, 50);
   bindGauge('/humidity', 'gaugeHum', 'humValue', 'humValueWrap', 0, 100);
-
   /* ============================================================
      Historique & prédiction — basés sur /logs écrit par l'ESP32
      ============================================================ */
-
   // Pente d'une régression linéaire sur une série (x = index, y = valeur)
   function linearSlope(values) {
     const n = values.length;
@@ -573,40 +552,34 @@
     });
     return den === 0 ? 0 : num / den;
   }
-
   function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
-
   function updateTrendCard(trendEl, rateEl, forecastEl, values, {
     threshold, unit, decimals, min, max, samplingIntervalSec
   }) {
+    if (values.length < 2) { rateEl.textContent = "Données insuffisantes"; forecastEl.textContent = "--"; return; }
     const slope = linearSlope(values); // variation par échantillon
     const ratePerMin = slope * (60 / samplingIntervalSec);
     const last = values[values.length - 1];
     const stepsInOneMinute = Math.round(60 / samplingIntervalSec);
     const forecast = clamp(last + slope * stepsInOneMinute, min, max);
-
     const arrow = trendEl.querySelector('.arrow');
     const label = trendEl.querySelector('.trend-label');
     if (slope > threshold) { arrow.textContent = '↗'; label.textContent = 'En hausse'; }
     else if (slope < -threshold) { arrow.textContent = '↘'; label.textContent = 'En baisse'; }
     else { arrow.textContent = '→'; label.textContent = 'Stable'; }
-
     const sign = ratePerMin > 0 ? '+' : '';
     rateEl.textContent = `${sign}${ratePerMin.toFixed(decimals)} ${unit}/min`;
     forecastEl.textContent = `${forecast.toFixed(decimals)} ${unit}`;
   }
-
   function renderHistoryChart(svgEl, emptyEl, temps, hums) {
-    if (temps.length < 2) {
+    if (temps.length < 2 || hums.length < 2) {
       svgEl.style.display = 'none';
       emptyEl.style.display = 'block';
       return;
     }
     svgEl.style.display = 'block';
     emptyEl.style.display = 'none';
-
     const w = 300, h = 120, pad = 6;
-
     function pathFor(values) {
       const min = Math.min(...values), max = Math.max(...values);
       const range = (max - min) || 1;
@@ -617,18 +590,15 @@
         return `${x.toFixed(1)},${y.toFixed(1)}`;
       }).join(' ');
     }
-
     const gridLines = [0.25, 0.5, 0.75].map(f =>
       `<line x1="${pad}" y1="${(h - pad * 2) * f + pad}" x2="${w - pad}" y2="${(h - pad * 2) * f + pad}" stroke="var(--border)" stroke-width="1" />`
     ).join('');
-
     svgEl.innerHTML = `
       ${gridLines}
       <polyline points="${pathFor(temps)}" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
       <polyline points="${pathFor(hums)}" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     `;
   }
-
   function renderLogTable(bodyEl, entries) {
     // entries arrive triés du plus ancien au plus récent -> on affiche le plus récent en premier
     const rows = entries.slice().reverse().map(e => {
@@ -640,7 +610,6 @@
     });
     bodyEl.innerHTML = rows.join('');
   }
-
   const tempTrendEl = document.getElementById('tempTrend');
   const humTrendEl = document.getElementById('humTrend');
   const tempRateEl = document.getElementById('tempRate');
@@ -651,49 +620,32 @@
   const chartEmptyEl = document.getElementById('chartEmpty');
   const logTableBodyEl = document.getElementById('logTableBody');
   const historyCountEl = document.getElementById('historyCount');
-
   const SAMPLING_INTERVAL_SEC = 2; // correspond au delay(2000) côté ESP32
-
   function renderLogs(rawLogs) {
     const entries = Object.values(rawLogs || {});
     const recentEntries = entries.slice(-20);
-
     historyCountEl.textContent = `${recentEntries.length} point${recentEntries.length > 1 ? 's' : ''}`;
-
     if (recentEntries.length === 0) {
       renderHistoryChart(historyChartEl, chartEmptyEl, [], []);
       logTableBodyEl.innerHTML = '';
       return;
     }
-
     const temps = recentEntries.map(e => Number(e.temperature)).filter(v => Number.isFinite(v));
     const hums = recentEntries.map(e => Number(e.humidity)).filter(v => Number.isFinite(v));
-
     renderHistoryChart(historyChartEl, chartEmptyEl, temps, hums);
     renderLogTable(logTableBodyEl, recentEntries);
-
-    if (temps.length >= 2) {
-      updateTrendCard(tempTrendEl, tempRateEl, tempForecastEl, temps, {
-        threshold: 0.05, unit: '°C', decimals: 1, min: 0, max: 50, samplingIntervalSec: SAMPLING_INTERVAL_SEC
-      });
-    }
-    if (hums.length >= 2) {
-      updateTrendCard(humTrendEl, humRateEl, humForecastEl, hums, {
-        threshold: 0.1, unit: '%', decimals: 0, min: 0, max: 100, samplingIntervalSec: SAMPLING_INTERVAL_SEC
-      });
-    }
+    updateTrendCard(tempTrendEl, tempRateEl, tempForecastEl, temps, {
+      threshold: 0.05, unit: '°C', decimals: 1, min: 0, max: 50, samplingIntervalSec: SAMPLING_INTERVAL_SEC
+    });
+    updateTrendCard(humTrendEl, humRateEl, humForecastEl, hums, {
+      threshold: 0.1, unit: '%', decimals: 0, min: 0, max: 100, samplingIntervalSec: SAMPLING_INTERVAL_SEC
+    });
   }
 
-  // La lecture REST récupère tous les enfants de /logs, y compris lorsque
-  // le listener temps réel ne renvoie qu'une partie du nœud dans cette page.
   async function loadLogs() {
     try {
-      const response = await fetch(`${firebaseConfig.databaseURL}/logs.json`, {
-        cache: 'no-store'
-      });
-      if (!response.ok) {
-        throw new Error(`Firebase HTTP ${response.status}`);
-      }
+      const response = await fetch(`${firebaseConfig.databaseURL}/logs.json`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Firebase HTTP ${response.status}`);
       renderLogs(await response.json());
     } catch (error) {
       console.error('Lecture Firebase /logs impossible:', error);
@@ -705,6 +657,11 @@
   loadLogs();
   setInterval(loadLogs, 2000);
 </script>
-
-</body>
+<nav class="mobile-nav" aria-label="Navigation du panneau"><a href="#controls"><span class="nav-icon" aria-hidden="true">◉</span>Contrôle</a><a href="#history"><span class="nav-icon" aria-hidden="true">↗</span>Tendances</a><a href="#journal"><span class="nav-icon" aria-hidden="true">≡</span>Journal</a></nav>
+<script>
+const navLinks = [...document.querySelectorAll('.mobile-nav a')];
+function markNavigation(link) { navLinks.forEach(item => { const active = item === link; item.classList.toggle('active', active); if (active) item.setAttribute('aria-current', 'location'); else item.removeAttribute('aria-current'); }); }
+markNavigation(navLinks[0]);
+navLinks.forEach(link => link.addEventListener('click', () => markNavigation(link)));
+</script></body>
 </html>
