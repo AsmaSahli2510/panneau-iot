@@ -54,7 +54,7 @@
      ============================================================ */
   .panel{
     width:100%;
-    max-width:560px;
+    max-width:620px;
     background:var(--bezel);
     border-radius:var(--radius-panel);
     border:1px solid var(--border);
@@ -109,7 +109,7 @@
   }
 
   /* ============================================================
-     Grille des modules
+     Grille des modules (interrupteurs + jauges)
      ============================================================ */
   .modules{
     display:grid;
@@ -215,38 +215,154 @@
     display:flex;
     align-items:baseline;
     gap:2px;
-    transition:color .25s ease, text-shadow .25s ease;
+    transition:color .25s ease;
   }
   .gauge-value span:first-child{ font-size:22px; }
   .unit{ font-size:11px; color:var(--text-dim); }
-
-  .gauge-value.flash{
-    color:var(--accent);
-  }
+  .gauge-value.flash{ color:var(--accent); }
 
   /* ============================================================
-     Tendance (historique + prédiction simple)
+     Section Historique & Prédiction
      ============================================================ */
-  .trend-row{
+  .history-panel{
+    margin-top:16px;
+    padding-top:18px;
+    border-top:1px solid var(--border);
+  }
+  .history-header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .history-header h2{
+    margin:0;
+    font-size:14.5px;
+    font-weight:600;
+  }
+  .history-header .history-hint{
+    font-size:11.5px;
+    color:var(--text-dim);
+  }
+
+  .predictions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  @media (max-width:420px){
+    .predictions{ grid-template-columns:1fr; }
+  }
+  .prediction-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+  }
+  .prediction-card.temp{ --accent:var(--amber); }
+  .prediction-card.hum{  --accent:var(--cyan); }
+
+  .prediction-row{
     display:flex;
     align-items:center;
-    gap:8px;
-    margin-top:2px;
-  }
-  .sparkline{
-    color:var(--accent);
-    opacity:0.85;
-    display:flex;
-    line-height:0;
+    justify-content:space-between;
+    margin-top:8px;
   }
   .trend-badge{
     display:inline-flex;
     align-items:center;
     gap:4px;
-    font-size:11.5px;
+    font-size:12.5px;
     color:var(--accent);
+    font-weight:600;
   }
-  .trend-badge .arrow{ font-size:13px; line-height:1; }
+  .trend-badge .arrow{ font-size:14px; line-height:1; }
+  .rate{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--text-dim);
+  }
+  .forecast{
+    margin-top:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--text);
+    padding-top:10px;
+    border-top:1px dashed var(--border);
+  }
+  .forecast .forecast-label{
+    display:block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:11px;
+    color:var(--text-dim);
+    margin-bottom:2px;
+  }
+
+  .chart-wrap{
+    background:var(--recess);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px 12px 8px;
+    margin-bottom:14px;
+  }
+  .chart-wrap svg{ display:block; width:100%; height:auto; }
+  .chart-empty{
+    font-size:12.5px;
+    color:var(--text-dim);
+    text-align:center;
+    padding:30px 10px;
+  }
+  .chart-legend{
+    display:flex;
+    gap:16px;
+    margin-top:8px;
+    font-size:11.5px;
+    color:var(--text-dim);
+  }
+  .chart-legend .legend-item{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+  }
+  .chart-legend .dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    display:inline-block;
+  }
+  .chart-legend .temp .dot{ background:var(--amber); }
+  .chart-legend .hum .dot{ background:var(--cyan); }
+
+  .log-table-wrap{
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .log-table-header, .log-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+    padding:8px 14px;
+  }
+  .log-table-header{
+    background:var(--panel);
+    font-size:11px;
+    color:var(--text-dim);
+    border-bottom:1px solid var(--border);
+  }
+  .log-table-body{
+    max-height:180px;
+    overflow-y:auto;
+    background:var(--bezel);
+  }
+  .log-row{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    border-bottom:1px solid var(--border);
+  }
+  .log-row:last-child{ border-bottom:none; }
+  .log-row .log-temp{ color:var(--amber); }
+  .log-row .log-hum{ color:var(--cyan); }
 
   @media (prefers-reduced-motion: reduce){
     .switch-thumb, .gauge, .status-dot, .gauge-value{ transition:none !important; animation:none !important; }
@@ -297,10 +413,6 @@
           <span id="tempValue">--</span><span class="unit">°C</span>
         </div>
       </div>
-      <div class="trend-row">
-        <span class="sparkline" id="tempSpark"></span>
-        <span class="trend-badge" id="tempTrend"><span class="arrow">→</span><span class="trend-label">Stable</span></span>
-      </div>
     </div>
 
     <!-- Jauge Humidité -->
@@ -311,18 +423,69 @@
           <span id="humValue">--</span><span class="unit">%</span>
         </div>
       </div>
-      <div class="trend-row">
-        <span class="sparkline" id="humSpark"></span>
-        <span class="trend-badge" id="humTrend"><span class="arrow">→</span><span class="trend-label">Stable</span></span>
-      </div>
     </div>
 
   </div>
+
+  <!-- ============================================================
+       Historique & Prédiction
+       ============================================================ -->
+  <div class="history-panel">
+    <div class="history-header">
+      <h2>Historique &amp; prédiction</h2>
+      <span class="history-hint" id="historyCount">0 points</span>
+    </div>
+
+    <div class="predictions">
+      <div class="prediction-card temp">
+        <div class="module-label">Température — tendance</div>
+        <div class="prediction-row">
+          <span class="trend-badge" id="tempTrend"><span class="arrow">→</span><span class="trend-label">Stable</span></span>
+          <span class="rate" id="tempRate">+0.00 °C/min</span>
+        </div>
+        <div class="forecast">
+          <span class="forecast-label">Estimation à +1 min</span>
+          <span id="tempForecast">--</span>
+        </div>
+      </div>
+
+      <div class="prediction-card hum">
+        <div class="module-label">Humidité — tendance</div>
+        <div class="prediction-row">
+          <span class="trend-badge" id="humTrend"><span class="arrow">→</span><span class="trend-label">Stable</span></span>
+          <span class="rate" id="humRate">+0.0 %/min</span>
+        </div>
+        <div class="forecast">
+          <span class="forecast-label">Estimation à +1 min</span>
+          <span id="humForecast">--</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <svg id="historyChart" viewBox="0 0 300 120" preserveAspectRatio="none"></svg>
+      <div class="chart-empty" id="chartEmpty">En attente de données de /logs… (vérifie que l'ESP32 tourne et écrit bien dans Firebase)</div>
+      <div class="chart-legend">
+        <span class="legend-item temp"><span class="dot"></span>Température</span>
+        <span class="legend-item hum"><span class="dot"></span>Humidité</span>
+      </div>
+    </div>
+
+    <div class="log-table-wrap">
+      <div class="log-table-header">
+        <span>Temps (depuis boot)</span><span>Temp.</span><span>Hum.</span>
+      </div>
+      <div class="log-table-body" id="logTableBody">
+        <!-- lignes injectées par JS -->
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-  import { getDatabase, ref, onValue, set, query, orderByKey, limitToLast } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+  import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
   // Configuration Firebase — même projet que le TP1/TP2 (controle-leds-c1d38)
   const firebaseConfig = {
@@ -393,9 +556,11 @@
   bindGauge('/temperature', 'gaugeTemp', 'tempValue', 'tempValueWrap', 0, 50);
   bindGauge('/humidity', 'gaugeHum', 'humValue', 'humValueWrap', 0, 100);
 
-  /* ---------- Historique (logs) + tendance simple (régression linéaire) ---------- */
+  /* ============================================================
+     Historique & prédiction — basés sur /logs écrit par l'ESP32
+     ============================================================ */
 
-  // Pente d'une régression linéaire sur une série de valeurs (x = index, y = valeur)
+  // Pente d'une régression linéaire sur une série (x = index, y = valeur)
   function linearSlope(values) {
     const n = values.length;
     if (n < 2) return 0;
@@ -409,56 +574,136 @@
     return den === 0 ? 0 : num / den;
   }
 
-  function renderSparkline(el, values) {
-    if (values.length < 2) { el.innerHTML = ''; return; }
-    const w = 64, h = 22, pad = 2;
-    const min = Math.min(...values), max = Math.max(...values);
-    const range = (max - min) || 1;
-    const stepX = (w - pad * 2) / (values.length - 1);
-    const points = values.map((v, i) => {
-      const x = pad + i * stepX;
-      const y = h - pad - ((v - min) / range) * (h - pad * 2);
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    }).join(' ');
-    el.innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><polyline points="${points}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
+
+  function updateTrendCard(trendEl, rateEl, forecastEl, values, {
+    threshold, unit, decimals, min, max, samplingIntervalSec
+  }) {
+    const slope = linearSlope(values); // variation par échantillon
+    const ratePerMin = slope * (60 / samplingIntervalSec);
+    const last = values[values.length - 1];
+    const stepsInOneMinute = Math.round(60 / samplingIntervalSec);
+    const forecast = clamp(last + slope * stepsInOneMinute, min, max);
+
+    const arrow = trendEl.querySelector('.arrow');
+    const label = trendEl.querySelector('.trend-label');
+    if (slope > threshold) { arrow.textContent = '↗'; label.textContent = 'En hausse'; }
+    else if (slope < -threshold) { arrow.textContent = '↘'; label.textContent = 'En baisse'; }
+    else { arrow.textContent = '→'; label.textContent = 'Stable'; }
+
+    const sign = ratePerMin > 0 ? '+' : '';
+    rateEl.textContent = `${sign}${ratePerMin.toFixed(decimals)} ${unit}/min`;
+    forecastEl.textContent = `${forecast.toFixed(decimals)} ${unit}`;
   }
 
-  function updateTrendBadge(badgeEl, slope, threshold) {
-    const arrow = badgeEl.querySelector('.arrow');
-    const label = badgeEl.querySelector('.trend-label');
-    if (slope > threshold) {
-      arrow.textContent = '↗';
-      label.textContent = 'En hausse';
-    } else if (slope < -threshold) {
-      arrow.textContent = '↘';
-      label.textContent = 'En baisse';
-    } else {
-      arrow.textContent = '→';
-      label.textContent = 'Stable';
+  function renderHistoryChart(svgEl, emptyEl, temps, hums) {
+    if (temps.length < 2) {
+      svgEl.style.display = 'none';
+      emptyEl.style.display = 'block';
+      return;
+    }
+    svgEl.style.display = 'block';
+    emptyEl.style.display = 'none';
+
+    const w = 300, h = 120, pad = 6;
+
+    function pathFor(values) {
+      const min = Math.min(...values), max = Math.max(...values);
+      const range = (max - min) || 1;
+      const stepX = (w - pad * 2) / (values.length - 1);
+      return values.map((v, i) => {
+        const x = pad + i * stepX;
+        const y = h - pad - ((v - min) / range) * (h - pad * 2);
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(' ');
+    }
+
+    const gridLines = [0.25, 0.5, 0.75].map(f =>
+      `<line x1="${pad}" y1="${(h - pad * 2) * f + pad}" x2="${w - pad}" y2="${(h - pad * 2) * f + pad}" stroke="var(--border)" stroke-width="1" />`
+    ).join('');
+
+    svgEl.innerHTML = `
+      ${gridLines}
+      <polyline points="${pathFor(temps)}" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <polyline points="${pathFor(hums)}" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    `;
+  }
+
+  function renderLogTable(bodyEl, entries) {
+    // entries arrive triés du plus ancien au plus récent -> on affiche le plus récent en premier
+    const rows = entries.slice().reverse().map(e => {
+      const t = Number(e.timestamp || 0);
+      const timeLabel = `t+${Math.round(t / 1000)}s`;
+      const tempLabel = isNaN(e.temperature) ? '--' : Number(e.temperature).toFixed(1) + '°C';
+      const humLabel = isNaN(e.humidity) ? '--' : Number(e.humidity).toFixed(1) + '%';
+      return `<div class="log-row"><span>${timeLabel}</span><span class="log-temp">${tempLabel}</span><span class="log-hum">${humLabel}</span></div>`;
+    });
+    bodyEl.innerHTML = rows.join('');
+  }
+
+  const tempTrendEl = document.getElementById('tempTrend');
+  const humTrendEl = document.getElementById('humTrend');
+  const tempRateEl = document.getElementById('tempRate');
+  const humRateEl = document.getElementById('humRate');
+  const tempForecastEl = document.getElementById('tempForecast');
+  const humForecastEl = document.getElementById('humForecast');
+  const historyChartEl = document.getElementById('historyChart');
+  const chartEmptyEl = document.getElementById('chartEmpty');
+  const logTableBodyEl = document.getElementById('logTableBody');
+  const historyCountEl = document.getElementById('historyCount');
+
+  const SAMPLING_INTERVAL_SEC = 2; // correspond au delay(2000) côté ESP32
+
+  function renderLogs(rawLogs) {
+    const entries = Object.values(rawLogs || {});
+    const recentEntries = entries.slice(-20);
+
+    historyCountEl.textContent = `${recentEntries.length} point${recentEntries.length > 1 ? 's' : ''}`;
+
+    if (recentEntries.length === 0) {
+      renderHistoryChart(historyChartEl, chartEmptyEl, [], []);
+      logTableBodyEl.innerHTML = '';
+      return;
+    }
+
+    const temps = recentEntries.map(e => Number(e.temperature)).filter(v => Number.isFinite(v));
+    const hums = recentEntries.map(e => Number(e.humidity)).filter(v => Number.isFinite(v));
+
+    renderHistoryChart(historyChartEl, chartEmptyEl, temps, hums);
+    renderLogTable(logTableBodyEl, recentEntries);
+
+    if (temps.length >= 2) {
+      updateTrendCard(tempTrendEl, tempRateEl, tempForecastEl, temps, {
+        threshold: 0.05, unit: '°C', decimals: 1, min: 0, max: 50, samplingIntervalSec: SAMPLING_INTERVAL_SEC
+      });
+    }
+    if (hums.length >= 2) {
+      updateTrendCard(humTrendEl, humRateEl, humForecastEl, hums, {
+        threshold: 0.1, unit: '%', decimals: 0, min: 0, max: 100, samplingIntervalSec: SAMPLING_INTERVAL_SEC
+      });
     }
   }
 
-  const tempSparkEl = document.getElementById('tempSpark');
-  const humSparkEl = document.getElementById('humSpark');
-  const tempTrendEl = document.getElementById('tempTrend');
-  const humTrendEl = document.getElementById('humTrend');
+  // La lecture REST récupère tous les enfants de /logs, y compris lorsque
+  // le listener temps réel ne renvoie qu'une partie du nœud dans cette page.
+  async function loadLogs() {
+    try {
+      const response = await fetch(`${firebaseConfig.databaseURL}/logs.json`, {
+        cache: 'no-store'
+      });
+      if (!response.ok) {
+        throw new Error(`Firebase HTTP ${response.status}`);
+      }
+      renderLogs(await response.json());
+    } catch (error) {
+      console.error('Lecture Firebase /logs impossible:', error);
+      chartEmptyEl.textContent = 'Impossible de lire /logs depuis Firebase.';
+      chartEmptyEl.style.display = 'block';
+    }
+  }
 
-  // Lit les 12 derniers points de /logs (écrits par l'ESP32) pour calculer la tendance
-  const logsQuery = query(ref(db, 'logs'), orderByKey(), limitToLast(12));
-  onValue(logsQuery, snap => {
-    const entries = [];
-    snap.forEach(child => entries.push(child.val()));
-    if (entries.length < 2) return;
-
-    const temps = entries.map(e => Number(e.temperature)).filter(v => !isNaN(v));
-    const hums = entries.map(e => Number(e.humidity)).filter(v => !isNaN(v));
-
-    renderSparkline(tempSparkEl, temps);
-    renderSparkline(humSparkEl, hums);
-
-    updateTrendBadge(tempTrendEl, linearSlope(temps), 0.05);
-    updateTrendBadge(humTrendEl, linearSlope(hums), 0.1);
-  });
+  loadLogs();
+  setInterval(loadLogs, 2000);
 </script>
 
 </body>
